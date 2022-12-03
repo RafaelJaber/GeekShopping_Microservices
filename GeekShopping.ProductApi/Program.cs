@@ -1,4 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using GeekShopping.ProductApi.Models.Context;
+
+
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<SqlContext>(
+options => options
+    .UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")
+                  ?? throw new InvalidOperationException("Connection string 'SqlServer' not found.")));
 
 // Add services to the container.
 
