@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using GeekShopping.ProductApi.Repository.IRepository;
 using GeekShopping.ProductApi.Models.ValueObjects;
 
-namespace GeekShopping.ProductApi.Controllers
-{
+namespace GeekShopping.ProductApi.Controllers {
     [Route("api/v1/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase {
@@ -17,8 +16,9 @@ namespace GeekShopping.ProductApi.Controllers
 
         public ProductController(IProductRepository repository)
         {
-            _repository = repository ?? throw new 
-                ArgumentNullException(nameof(repository));
+            _repository = repository
+                          ?? throw new
+                              ArgumentNullException(nameof(repository));
         }
 
         [HttpGet]
@@ -27,7 +27,7 @@ namespace GeekShopping.ProductApi.Controllers
             IEnumerable<ProductVo> products = await _repository.FindAllAsync();
             return Ok(products);
         }
-        
+
         [HttpGet("{id:long}")]
         public async Task<ActionResult> FindById(long id)
         {
@@ -37,7 +37,7 @@ namespace GeekShopping.ProductApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProductVo>> Create(ProductVo vo)
+        public async Task<ActionResult<ProductVo>> Create([FromBody] ProductVo vo)
         {
             if (vo == null) return BadRequest();
             var product = await _repository.CrateAsync(vo);
@@ -45,7 +45,7 @@ namespace GeekShopping.ProductApi.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<ProductVo>> Update(ProductVo vo)
+        public async Task<ActionResult<ProductVo>> Update([FromBody] ProductVo vo)
         {
             if (vo == null) return BadRequest();
             ProductVo product = await _repository.UpdateAsync(vo);
