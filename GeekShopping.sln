@@ -8,6 +8,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{47363AAE-B6F6-4B6D-A620-3A800D28D9D4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeekShopping.Web", "GeekShopping.Web\GeekShopping.Web.csproj", "{9B0D0422-0EF3-43BD-8EB0-6482D76C19C7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A3BE7EF7-2BD1-4231-B7DF-DA4DC01C52AB} = {A3BE7EF7-2BD1-4231-B7DF-DA4DC01C52AB}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeekShopping.ProductApi", "GeekShopping.ProductApi\GeekShopping.ProductApi.csproj", "{A3BE7EF7-2BD1-4231-B7DF-DA4DC01C52AB}"
 EndProject
