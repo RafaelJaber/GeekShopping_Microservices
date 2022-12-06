@@ -1,12 +1,9 @@
 using AutoMapper;
-using GeekShopping.ProductApi.Config;
+using GeekShopping.CartAPI.Config;
+using GeekShopping.CartAPI.Models.Context;
 using Microsoft.EntityFrameworkCore;
-using GeekShopping.ProductApi.Models.Context;
-using GeekShopping.ProductApi.Repository;
-using GeekShopping.ProductApi.Repository.IRepository;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,17 +12,18 @@ options => options
     .UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")
                   ?? throw new InvalidOperationException("Connection string 'SqlServer' not found.")));
 
-// Add services to the container.
 // Mapper
 IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+// Add services to the container.
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c => {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "GeekShopping.ProductAPI", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "GeekShopping.CartApi", Version = "v1" });
     c.EnableAnnotations();
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -55,8 +53,7 @@ builder.Services.AddSwaggerGen(c => {
     });
 });
 
-// Services
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
+//Services
 
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer",options => {
