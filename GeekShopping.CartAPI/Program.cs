@@ -1,6 +1,8 @@
 using AutoMapper;
 using GeekShopping.CartAPI.Config;
 using GeekShopping.CartAPI.Models.Context;
+using GeekShopping.CartAPI.Repository;
+using GeekShopping.CartAPI.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -17,7 +19,8 @@ IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-// Add services to the container.
+// Services
+builder.Services.AddScoped<ICartRepository, CartRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
