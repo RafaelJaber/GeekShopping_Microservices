@@ -1,7 +1,7 @@
-﻿@model IEnumerable<GeekShopping.Web.Models.Product>
+﻿@model IEnumerable<GeekShopping.Web.Models.ProductViewModel>
 <form>
     <div class="container row">
-        @foreach (Product product in Model)
+        @foreach (ProductViewModel product in Model)
         {
             <div class="col-4">
                 <div class="p-0 my-3 border">
