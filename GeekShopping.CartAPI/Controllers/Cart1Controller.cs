@@ -19,7 +19,7 @@ namespace GeekShopping.CartAPI.Controllers
             _repository = repository;
         }
 
-        [HttpGet("find-cart{userId:long}")]
+        [HttpGet("find-cart/{userId}")]
         public async Task<ActionResult<CartVo>> FindById(string userId)
         {
             CartVo cart = await _repository.FindCartByUserId(userId);
