@@ -102,13 +102,25 @@ namespace GeekShopping.CartAPI.Repository {
                 return false;
             }
         }
-        public Task<bool> ApplyCoupon(string userId, string cuponCode)
+        public async Task<bool> ApplyCoupon(string userId, string cuponCode)
         {
-            throw new NotImplementedException();
+            CartHeader header = await _context.CartHeaders
+                .FirstOrDefaultAsync(c => c.UserId == userId);
+            if (header == null) return false;
+            header.CuponCode = cuponCode;
+            _context.CartHeaders.Update(header);
+            await _context.SaveChangesAsync();
+            return true;
         }
-        public Task<bool> RemoveCoupon(string userId)
+        public async Task<bool> RemoveCoupon(string userId)
         {
-            throw new NotImplementedException();
+            CartHeader header = await _context.CartHeaders
+                .FirstOrDefaultAsync(c => c.UserId == userId);
+            if (header == null) return false;
+            header.CuponCode = "";
+            _context.CartHeaders.Update(header);
+            await _context.SaveChangesAsync();
+            return true;
         }
         public async Task<bool> ClearCart(string userId)
         {

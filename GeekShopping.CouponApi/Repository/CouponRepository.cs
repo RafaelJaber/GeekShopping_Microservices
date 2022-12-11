@@ -19,7 +19,7 @@ namespace GeekShopping.CouponApi.Repository {
 
         public async Task<CouponVo> GetCouponByCode(string code)
         {
-            Coupon? coupon = await _context.Coupons.FirstOrDefaultAsync(c => c.CouponCode == code && c.ExpireDate <= DateTime.Now);
+            Coupon? coupon = await _context.Coupons.FirstOrDefaultAsync(c => c.CouponCode == code);
             return _mapper.Map<CouponVo>(coupon);
 
         }

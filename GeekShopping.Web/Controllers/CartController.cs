@@ -9,11 +9,13 @@ namespace GeekShopping.Web.Controllers {
 
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
+        private readonly ICouponService _couponService;
 
-        public CartController(IProductService productService, ICartService cartService)
+        public CartController(IProductService productService, ICartService cartService, ICouponService couponService)
         {
             _productService = productService;
             _cartService = cartService;
+            _couponService = couponService;
         }
 
         [Authorize]
@@ -33,6 +35,31 @@ namespace GeekShopping.Web.Controllers {
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> ApplyCoupon(CartViewModel model)
+        {
+            string token = await HttpContext.GetTokenAsync("access_token") ?? "";
+            string userId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value ?? "";
+
+            bool response = await _cartService.ApplyCoupon(model, token);
+            if (response) return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> RemoveCoupon()
+        {
+            string token = await HttpContext.GetTokenAsync("access_token") ?? "";
+            string userId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value ?? "";
+
+            bool response = await _cartService.RemoveCoupon(userId, token);
+            if (response) return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index));
+        }
+
         private async Task<CartViewModel?> FindUserCart()
         {
             string token = await HttpContext.GetTokenAsync("access_token") ?? "";
@@ -41,9 +68,16 @@ namespace GeekShopping.Web.Controllers {
             CartViewModel? response = await _cartService.FindCartByUserId(userId, token);
 
             if (response?.CartHeader != null){
+                if (!string.IsNullOrWhiteSpace(response.CartHeader.CuponCode)){
+                    CouponViewModel? coupon = await _couponService.GetCouponByCode(response.CartHeader.CuponCode, token);
+                    if (coupon?.CouponCode != null){
+                        response.CartHeader.DiscountTotal = (double)coupon.DiscountAmount;
+                    }
+                }
                 foreach (CartDetailViewModel item in response.CartDetails){
                     response.CartHeader.PurchaseAmount += (double)(item.Product.Price * item.Count);
                 }
+                response.CartHeader.PurchaseAmount -= response.CartHeader.DiscountTotal;
             }
             return response;
         }

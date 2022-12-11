@@ -22,7 +22,7 @@ namespace GeekShopping.CouponApi.Controllers
         }
 
         [HttpGet("{code}")]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult<CouponVo>> FindByCode(string code)
         {
             CouponVo? coupon = await _repository.GetCouponByCode(code);
