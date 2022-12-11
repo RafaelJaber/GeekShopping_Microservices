@@ -5,7 +5,6 @@ namespace GeekShopping.CouponApi.Models.Base {
     public class BaseEntity {
         [Key]
         [Column("Id")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public long Id { get; set; }
     }
 }

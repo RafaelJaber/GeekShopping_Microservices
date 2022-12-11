@@ -24,10 +24,12 @@ namespace GeekShopping.CouponApi.Migrations
 
             modelBuilder.Entity("GeekShopping.CouponApi.Models.Coupon", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("bigint")
                         .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("CouponCode")
                         .IsRequired()
@@ -47,8 +49,8 @@ namespace GeekShopping.CouponApi.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("RegisterDate");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier")
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("UserRegister");
 
                     b.HasKey("Id");

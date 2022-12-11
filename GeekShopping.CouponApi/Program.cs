@@ -1,6 +1,8 @@
 using AutoMapper;
 using GeekShopping.CouponApi.Config;
 using GeekShopping.CouponApi.Models.Context;
+using GeekShopping.CouponApi.Repository;
+using GeekShopping.CouponApi.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -18,7 +20,7 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Services
-
+builder.Services.AddScoped<ICouponRepository, CouponRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

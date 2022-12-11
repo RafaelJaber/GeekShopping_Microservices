@@ -23,6 +23,6 @@ namespace GeekShopping.CouponApi.Models {
         public DateTime RegisterDate { get; set; } = DateTime.Now;
 
         [Column("UserRegister")]
-        public Guid UserId { get; set; }
+        public string? UserId { get; set; }
     }
 }
