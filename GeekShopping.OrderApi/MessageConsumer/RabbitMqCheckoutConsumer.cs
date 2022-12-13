@@ -58,7 +58,8 @@ namespace GeekShopping.OrderApi.MessageConsumer {
                 OrderTime = DateTime.Now,
                 PaymentStatus = false,
                 Phone = vo?.Phone,
-                DateTime = vo.DateTime
+                DateTime = vo.DateTime,
+                Cvv = vo.Cvv
             };
             if (vo.CartDetails != null){
                 foreach (CartDetailVo item in vo.CartDetails){
