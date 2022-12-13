@@ -1,9 +1,9 @@
 ﻿using GeekShopping.CartAPI.Models;
 using GeekShopping.CartAPI.Models.ValueObjects;
+using GeekShopping.MessageBus;
 
 namespace GeekShopping.CartAPI.Messages {
-    public class CheckoutHeaderVo {
-        public long Id { get; set; }
+    public class CheckoutHeaderVo : BaseMessage{
         public string UserId { get; set; }
         public string CuponCode { get; set; }
         public double PurchaseAmount { get; set; }
