@@ -26,9 +26,10 @@ sqlContext.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
 builder.Services.AddSingleton(new OrderRepository(sqlContext.Options));
 
 builder.Services.AddHostedService<RabbitMqCheckoutConsumer>();
+builder.Services.AddHostedService<RabbitMqPaymentConsumer>();
 builder.Services.AddSingleton<IRabbitMqMessageSender, RabbitMqMessageSender>();
 
- builder.Services.AddControllers();
+builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c => {
