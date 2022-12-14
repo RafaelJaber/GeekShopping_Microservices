@@ -2,6 +2,7 @@ using AutoMapper;
 using GeekShopping.OrderApi.Config;
 using GeekShopping.OrderApi.MessageConsumer;
 using GeekShopping.OrderApi.Models.Context;
+using GeekShopping.OrderApi.RabbitMQSender;
 using GeekShopping.OrderApi.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -25,6 +26,7 @@ sqlContext.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
 builder.Services.AddSingleton(new OrderRepository(sqlContext.Options));
 
 builder.Services.AddHostedService<RabbitMqCheckoutConsumer>();
+builder.Services.AddSingleton<IRabbitMqMessageSender, RabbitMqMessageSender>();
 
  builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
