@@ -11,6 +11,7 @@ namespace GeekShopping.PaymentApi.RabbitMQSender {
         private readonly string _passWord;
         private readonly string _userName;
         private IConnection _connection;
+        private const string ExchangeName = "FanoutPaymentUpdateExchange";
 
         public RabbitMqMessageSender()
         {
@@ -19,14 +20,14 @@ namespace GeekShopping.PaymentApi.RabbitMQSender {
             _userName = "guest";
         }
 
-        public void SendMessage(BaseMessage message, string queueName)
+        public void SendMessage(BaseMessage message)
         {
             if (!ConnectionExists()) return;
             using IModel channel = _connection.CreateModel();
-            channel.QueueDeclare(queue: queueName, false, false, false, arguments: null);
+            channel.ExchangeDeclare(ExchangeName, ExchangeType.Fanout, durable: false);
 
             byte[] body = GetMessageAsByteArray(message);
-            channel.BasicPublish(exchange: "", routingKey: queueName, basicProperties: null, body: body);
+            channel.BasicPublish(exchange: ExchangeName, routingKey: "", basicProperties: null, body: body);
         }
 
         // Usado para serializar a mensagem em bytes

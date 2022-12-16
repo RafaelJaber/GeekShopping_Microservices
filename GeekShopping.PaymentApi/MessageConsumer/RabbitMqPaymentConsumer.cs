@@ -55,7 +55,7 @@ namespace GeekShopping.PaymentApi.MessageConsumer {
             };
             
             try{
-                _rabbitMqMessageSender.SendMessage(paymentResultMessage, "orderPaymentResultQueue");
+                _rabbitMqMessageSender.SendMessage(paymentResultMessage);
             }
             catch (Exception e){
                 Console.WriteLine(e);
