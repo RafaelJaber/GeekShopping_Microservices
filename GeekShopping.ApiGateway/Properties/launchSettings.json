@@ -12,7 +12,7 @@
     "GeekShopping.ApiGateway": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
+      "launchBrowser": false,
       "hotReloadProfile": "aspnetcore",
       "applicationUrl": "https://localhost:8080;http://localhost:8081",
       "environmentVariables": {

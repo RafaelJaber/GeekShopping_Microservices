@@ -12,7 +12,7 @@
     "GeekShopping.OrderApi": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:5090;http://localhost:5091",
       "environmentVariables": {
